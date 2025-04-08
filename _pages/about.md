@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>[University of Delaware](https://www.udel.edu/academics/colleges/ceoe/departments/es/)s</a>. 109, Penny Hall, 255 Academy Street, Newark, DE 19716
+subtitle: <a href='#'>[University of Delaware](https://www.udel.edu/academics/colleges/ceoe/departments/es/)</a>. 109, Penny Hall, 255 Academy Street, Newark, DE 19716
 
 profile:
   align: right
