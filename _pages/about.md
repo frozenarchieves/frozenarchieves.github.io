@@ -42,11 +42,8 @@ Outside the lab, I'm always down for food adventures and the occasional dive int
 
 📍 Currently based at [University of Delaware](https://www.udel.edu/academics/colleges/ceoe/departments/es/)
 
-IODP Expedition 383 Sitemap![image](https://github.com/user-attachments/assets/68399eb6-6932-4ccd-806d-3fb0b55e4ee2)
+<img src="http://publications.iodp.org/proceedings/383/383_04.png" alt="IODP Expedition 383 Sitemap" width="300" height="200"> IODP Expedition 383 Sitemap </img>
 [Source](http://publications.iodp.org/proceedings/383/383title.html)
 
-Examples of dropstone occurrence, Hole U1539C![image](https://github.com/user-attachments/assets/fd5a7a83-9027-43cc-8c96-2175da3a99f7)
+<img src="http://publications.iodp.org/proceedings/383/103/figures/383_103_F12.png" alt="Examples of IRD in sediment X-ray images, Hole U1539C" width="300" height="200"> Examples of IRD in sediment X-ray images, Hole U1539C </img>
 [Source](http://publications.iodp.org/proceedings/383/103/383_103.html)
-
-
-
