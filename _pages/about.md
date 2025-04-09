@@ -6,7 +6,7 @@ subtitle: <a href='#'></a>109, Penny Hall, 255 Academy Street, Newark, DE 19716
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: passport-new.png
   image_circular: false # crops the image to make it circular
   more_info: >
    <!--  <p>109, Penny Hall</p>
