@@ -1,200 +1,228 @@
 {
   "basics": {
-    "name": "Albert Einstein",
-    "label": "Scientist",
-    "image": "",
-    "email": "albert@einstein.de",
-    "phone": "(912) 123-4567",
-    "url": "https://alshedivat.github.io/al-folio/",
-    "summary": "A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time",
+    "name": "Pranaykumar Tirpude",
+    "label": "PhD Candidate in Earth Sciences",
+    "image": "passport-new.png",
+    "email": "pranaykt@udel.edu",
+    "url": "https://www.udel.edu/academics/colleges/ceoe/departments/es/",
+    "summary": "PhD candidate at the University of Delaware studying Antarctic Ice Sheet dynamics through high-resolution IRD records, with a focus on AI/ML, paleoclimate/paleoceanography , and geochemistry.",
     "location": {
-      "address": "2712 Broadway St",
-      "postalCode": "CA 94115",
-      "city": "San Francisco",
+      "address": "PNY 109, 225 Academy St",
+      "postalCode": "19716",
+      "city": "Newark",
       "countryCode": "US",
-      "region": "California"
+      "region": "Delaware"
     },
     "profiles": [
       {
-        "network": "Twitter",
-        "username": "AlbertEinstein",
-        "url": "https://twitter.com/AlbertEinstein"
+        "network": "LinkedIn",
+        "username": "pranaykumar-tirpude",
+        "url": "https://www.linkedin.com/in/pranaykumar-tirpude-617704ab"
       }
     ]
   },
   "work": [
     {
-      "name": "Institute for Advanced Study, Princeton University",
-      "position": "Professor of Theoretical Physics",
-      "url": "https://example.com",
-      "startDate": "1933-01-01",
-      "endDate": "1955-01-01",
-      "summary": "Teaching at Palmer Physical Laboratory (now 302 Frist Campus Center). While not a professor at Princeton, I associated with the physics professors and continued to give lectures on campus.",
-      "highlights": ["Relativity"]
+      "name": "University of Delaware",
+      "position": "PhD Candidate",
+      "url": "https://www.udel.edu/academics/colleges/ceoe/departments/es/",
+      "startDate": "2023 - Present",
+      "endDate": "",
+      "summary": "Researching Antarctic Ice Sheet Dynamics using high-resolution IRD records.",
+      "highlights": [
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "Indian Institute of Science",
+      "position": "Junior Research Fellow",
+      "url": "https://iisc.ac.in",
+      "startDate": "2021",
+      "endDate": "2023",
+      "summary": "Reconstruction of atmospheric CO2 from boron isotope ratios in foraminifera.",
+      "highlights": [
+        "Mass spectrometry using ICP-OES and QQQ-ICP-MS",
+        "Class 100 clean lab sample processing",
+        "Foraminifera taxonomy and picking"
+      ]
     }
   ],
   "volunteer": [
     {
-      "organization": "People's Climate March",
-      "location": "Zurich, Switzerland",
-      "position": "Lead Organizer",
-      "url": "https://example.com",
-      "startDate": "2014-04-01",
-      "endDate": "2015-07-01",
-      "summary": "Lead organizer for the New York City branch of the People's Climate March, the largest climate march in history.",
-      "highlights": ["Awarded 'Climate Hero' award by Greenpeace for my efforts organizing the march.", "Men of the year 2014 by Time magazine"]
+      "organization": "Coast Day",
+      "location": "University of Delaware",
+      "position": "Outreach Volunteer",
+      "url": "https://www.udel.edu",
+      "startDate": "2023, 2024",
+      "endDate": "",
+      "summary": "Participated in public outreach activities showcasing IODP drilling for paleoclimate science.",
+      "highlights": [
+        "Demonstrated significance of deep-sea sediment cores in past climate studies to ~200 attendees"
+      ]
     }
   ],
   "education": [
     {
-      "institution": "University of Zurich, Zurich, Switzerland",
-      "location": "Zurich, Switzerland",
-      "url": "https://www.uzh.ch/",
-      "area": "Software Development",
+      "institution": "University of Delaware",
+      "location": "Newark, DE, USA",
+      "url": "https://www.udel.edu/academics/colleges/ceoe/departments/es/",
+      "area": "Earth Sciences",
       "studyType": "PhD",
-      "startDate": "1905-01-01",
-      "endDate": "1905-01-01",
-      "score": "10",
-      "courses": ["Theory of Relativity"]
+      "startDate": "2023 - Ongoing",
+      "endDate": "",
+      "score": "",
+      "courses": [
+        "Paleoclimate/Paleoceanography",
+        "Geochemistry",
+        "Machine Learning for Earth Sciences"
+      ]
+    },
+    {
+      "institution": "Banaras Hindu University",
+      "location": "Varanasi, India",
+      "url": "https://www.bhu.ac.in",
+      "area": "Geology",
+      "studyType": "MSc",
+      "startDate": "2019",
+      "endDate": "2021",
+      "score": "",
+      "courses": ["AI/ML Applications in Paleoclimate/Paleoceanography"]
+    },
+    {
+      "institution": "Fergusson College, Pune",
+      "location": "Pune, India",
+      "url": "https://fergusson.edu",
+      "area": "Geology",
+      "studyType": "BSc",
+      "startDate": "2016",
+      "endDate": "2019",
+      "score": ""
     }
   ],
   "awards": [
     {
-      "title": "Nobel Prize in Physics",
-      "date": "1921-11-01",
-      "awarder": "Royal Swedish Academy of Sciences",
-      "url": "https://www.nobelprize.org/prizes/physics/1921/einstein/biographical/",
-      "summary": "The Nobel Prizes are five separate prizes that, according to Alfred Nobel's will of 1895, are awarded to 'those who, during the preceding year, have conferred the greatest benefit to humankind.'"
+      "title": "ONGC Scholarship for Geoscience Students",
+      "date": "2019",
+      "awarder": "Oil and Natural Gas Corporation of India",
+      "url": "",
+      "summary": "Awarded to meritorious students in the geosciences field."
+    },
+    {
+      "title": "INSA Summer Research Fellowship",
+      "date": "2018",
+      "awarder": "Indian National Science Academy",
+      "url": "https://web-japps.ias.ac.in:8443/fellowship2018/lists/selectedList.jsp",
+      "summary": "Awarded jointly by INSA, IAS, and NASI for undergraduate research."
     }
   ],
-  "certificates": [
-    {
-      "name": "Machine Learning",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
-      "icon": "fa-solid fa-location-dot"
-    },
-    {
-      "name": "Quantum Computing",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
-      "icon": "fa-solid fa-tag"
-    },
-    {
-      "name": "Quantum Information",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
-      "icon": "fa-solid fa-envelope"
-    },
-    {
-      "name": "Quantum Cryptography",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
-      "icon": "fa-solid fa-hashtag"
-    },
-    {
-      "name": "Quantum Communication",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
-      "icon": "fa-solid fa-calendar"
-    },
-    {
-      "name": "Quantum Teleportation",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
-      "icon": "fa-solid fa-clipboard-check"
-    }
-  ],
-  "publications": [
-    {
-      "name": "Zur Elektrody/namik bewegter Körper",
-      "publisher": "Annalen der Physik",
-      "releaseDate": "1905-06-30",
-      "url": "https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies",
-      "summary": "It concerned an interpretation of the Michelson–Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source."
-    },
-    {
-      "name": "Über einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt",
-      "publisher": "Annalen der Physik",
-      "releaseDate": "1905-03-18",
-      "url": "https://de.wikisource.org/wiki/Über_einen_die_Erzeugung_und_Verwandlung_des_Lichtes_betreffenden_heuristischen_Gesichtspunkt",
-      "summary": "In the second paper, he applied the quantum theory to light to explain the photoelectric effect. In particular, he used the idea of light quanta (photons) to explain experimental results, but stressed the importance of the experimental results. The importance of his work on the photoelectric effect earned him the Nobel Prize in Physics in 1921."
-    },
-    {
-      "name": "Die Grundlage der allgemeinen Relativitätstheorie",
-      "publisher": "Annalen der Physik",
-      "releaseDate": "1916-03-20",
-      "url": "https://de.wikisource.org/wiki/Die_Grundlage_der_allgemeinen_Relativitätstheorie",
-      "summary": "The publication of the theory of general relativity made him internationally famous. He was professor of physics at the universities of Zurich (1909–1911) and Prague (1911–1912), before he returned to ETH Zurich (1912–1914)."
-    }
-  ],
+  "certificates": [],
+  "publications": [],
   "skills": [
     {
-      "name": "Physics",
-      "level": "Master",
-      "icon": "fa-solid fa-hashtag",
+      "name": "Foraminifera Taxonomy and Isotope Geochemistry",
+      "level": "Intermediate",
+      "icon": "fa-solid fa-globe",
       "keywords": [
-        "Quantum Mechanics",
-        "Quantum Computing",
-        "Quantum Information",
-        "Quantum Cryptography",
-        "Quantum Communication",
-        "Quantum Teleportation"
+        "Paleoclimate Reconstruction",
+        "Isotope Geochemistry",
+        "Foraminiferal Analysis",
+        "Ice-Rafted Debris"
+      ]
+    },
+    {
+      "name": "Programming & AI/ML",
+      "level": "Intermediate",
+      "icon": "fa-solid fa-code",
+      "keywords": [
+        "Python",
+        "C++",
+        "SLURM",
+        "YOLO",
+        "SVM",
+        "Random Forest",
+        "AdaBoost"
+      ]
+    },
+    {
+      "name": "Visualization & GIS",
+      "level": "Intermediate",
+      "icon": "fa-solid fa-chart-line",
+      "keywords": [
+        "PyFerret",
+        "PyGMT",
+        "ODV",
+        "SeasDAS",
+        "QGIS"
       ]
     }
   ],
   "languages": [
     {
-      "language": "German",
-      "fluency": "Native speaker",
+      "language": "English",
+      "fluency": "Fluent",
       "icon": ""
     },
     {
-      "language": "English",
-      "fluency": "Fluent",
+      "language": "Hindi",
+      "fluency": "Native",
+      "icon": ""
+    },
+    {
+      "language": "Marathi",
+      "fluency": "Native",
       "icon": ""
     }
   ],
   "interests": [
     {
-      "name": "Physics",
-      "icon": "fa-solid fa-tag",
+      "name": "Earth System Science",
+      "icon": "fa-solid fa-earth-asia",
       "keywords": [
-        "Quantum Mechanics",
-        "Quantum Computing",
-        "Quantum Information",
-        "Quantum Cryptography",
-        "Quantum Communication",
-        "Quantum Teleportation"
+        "Antarctic Ice Sheet Dynamics",
+        "Paleoclimate/Paleoceanography",
+        "Geochemistry",
+        "AI/ML in Earth Sciences",
+        "Iceberg Trajectory Modeling"
       ]
     }
   ],
-  "references": [
-    {
-      "name": "Professor John Doe",
-      "icon": "fa-solid fa-laptop",
-      "reference": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit. D"
-    },
-    {
-      "name": "Professor John Doe",
-      "icon": "fa-solid fa-thumbtack",
-      "reference": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit. D"
-    }
-  ],
+  "references": [],
   "projects": [
     {
-      "name": "Quantum Computing",
-      "summary": "Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.",
-      "highlights": ["Quantum Teleportation", "Quantum Cryptography"],
-      "startDate": "2018-01-01",
-      "endDate": "2018-01-01",
-      "url": "https://example.com"
+      "name": "AI/ML for IRD Detection",
+      "summary": "Using object detection models to detect Ice-Rafted Debris in sediment core X-rays from IODP Expedition 383.",
+      "highlights": [
+        "Automated IRD counting",
+        "Time-series analysis"
+      ],
+      "startDate": "2023",
+      "endDate": "2024",
+      "url": ""
+    },
+
+    {
+      "name": "Provenance Studies using Radiogenic Isotopes",
+      "summary": "Using Sr, Nd and Pb isotopes in Ice-Rafted Debris from IODP Expedition 383 to determine the source of iceberg rafting events.",
+      "highlights": [
+        "Cation exchange Column Chemistry",
+        "Mass Spectrometry"
+      ],
+      "startDate": "2024 - Ongoing",
+      "endDate": "",
+      "url": ""
+    },
+    
+    {
+      "name": "Recontruction of atmospheric CO₂ across the mid-Pleistocene Transistion",
+      "summary": "Reconstruction of past atmospheric CO₂ using boron isotopes in foraminifera at IISc.",
+      "highlights": [
+        "Class 100 Clean lab sample processing",
+        "ICP-OES and QQQ-ICP-MS analysis"
+      ],
+      "startDate": "2021",
+      "endDate": "2023",
+      "url": ""
     }
   ]
 }
