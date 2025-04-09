@@ -42,6 +42,7 @@ Outside the lab, I'm always down for food adventures and the occasional dive int
 
 📍 Currently based at [University of Delaware](https://www.udel.edu/academics/colleges/ceoe/departments/es/)
 
+Here are some illustrations relatesd with my current work:
 <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 1em;">
   <div style="text-align: center;">
     <img src="/assets/img/383_04.png" alt="IODP Expedition 383 Sitemap" width="300" height="200">
