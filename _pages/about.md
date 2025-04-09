@@ -42,13 +42,15 @@ Outside the lab, I'm always down for food adventures and the occasional dive int
 
 📍 Currently based at [University of Delaware](https://www.udel.edu/academics/colleges/ceoe/departments/es/)
 
-<img src="http://publications.iodp.org/proceedings/383/383_04.png" alt="IODP Expedition 383 Sitemap" width="300" height="200"> 
-
-IODP Expedition 383 Sitemap 
-</img>
-[Source](http://publications.iodp.org/proceedings/383/383title.html)
-
-<img src="http://publications.iodp.org/proceedings/383/103/figures/383_103_F12.png" alt="Examples of IRD in sediment X-ray images, Hole U1539C" width="300" height="200"> 
-Examples of IRD in sediment X-ray images, Hole U1539C 
-</img>
-[Source](http://publications.iodp.org/proceedings/383/103/383_103.html)
+<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 1em;">
+  <div style="text-align: center;">
+    <img src="http://publications.iodp.org/proceedings/383/383_04.png" alt="IODP Expedition 383 Sitemap" width="300" height="200">
+    <p style="margin-top: 0.5em; font-size: 0.9em;">IODP Expedition 383 Sitemap<br>
+    <a href="http://publications.iodp.org/proceedings/383/383title.html">Source</a></p>
+  </div>
+  <div style="text-align: center;">
+    <img src="http://publications.iodp.org/proceedings/383/103/figures/383_103_F12.png" alt="Examples of IRD in sediment X-ray images, Hole U1539C" width="300" height="200">
+    <p style="margin-top: 0.5em; font-size: 0.9em;">Examples of IRD in sediment X-ray images, Hole U1539C<br>
+    <a href="http://publications.iodp.org/proceedings/383/103/383_103.html">Source</a></p>
+  </div>
+</div>
