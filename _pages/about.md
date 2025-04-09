@@ -7,7 +7,8 @@ subtitle: <a href='#'></a>109, Penny Hall, 255 Academy Street, Newark, DE 19716
 profile:
   align: right
   image: IMG_3243.png
-  image_circular: false # crops the image to make it circular
+  image: BasakLabLogo.png
+  image_circular: true # crops the image to make it circular
   more_info: >
    <!--  <p>109, Penny Hall</p>
      <p>255, Academy Street</p>
