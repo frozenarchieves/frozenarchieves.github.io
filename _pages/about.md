@@ -44,12 +44,12 @@ Outside the lab, I'm always down for food adventures and the occasional dive int
 
 <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 1em;">
   <div style="text-align: center;">
-    <img src="http://publications.iodp.org/proceedings/383/383_04.png" alt="IODP Expedition 383 Sitemap" width="300" height="200">
+    <img src="383_04.png" alt="IODP Expedition 383 Sitemap" width="300" height="200">
     <p style="margin-top: 0.5em; font-size: 0.9em;">IODP Expedition 383 Sitemap<br>
     <a href="http://publications.iodp.org/proceedings/383/383title.html">Source</a></p>
   </div>
   <div style="text-align: center;">
-    <img src="http://publications.iodp.org/proceedings/383/103/figures/383_103_F12.png" alt="Examples of IRD in sediment X-ray images, Hole U1539C" width="300" height="200">
+    <img src="383_103_F12.png" alt="Examples of IRD (dark spots) in sediment core X-ray images, Hole U1539C" width="300" height="200">
     <p style="margin-top: 0.5em; font-size: 0.9em;">Examples of IRD in sediment X-ray images, Hole U1539C<br>
     <a href="http://publications.iodp.org/proceedings/383/103/383_103.html">Source</a></p>
   </div>
