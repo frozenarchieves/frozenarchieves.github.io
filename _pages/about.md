@@ -7,7 +7,6 @@ subtitle: <a href='#'></a>109, Penny Hall, 255 Academy Street, Newark, DE 19716
 profile:
   align: right
   image: IMG_3243.png
-  image: BasakLabLogo.png
   image_circular: true # crops the image to make it circular
   more_info: >
    <!--  <p>109, Penny Hall</p>
@@ -26,6 +25,19 @@ latest_posts:
   enabled: false
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
+---
+
+---
+layout: about
+title: about
+permalink: /
+subtitle: 
+
+profile:
+  align: right
+  image: BasakLabLogo.png
+  image_circular: true # crops the image to make it circular
+  
 ---
 
 👋 Hey there! I'm a PhD candidate studying the dynamics of the Antarctic Ice Sheets over the past 1.4 million years using Ice-Rafted Debris (IRD) from deep-sea sediment cores. I use a combination of machine learning, radiogenic isotopic analysis, and iceberg trajectory modeling to understand past Antarctic ice-sheet behavior.
