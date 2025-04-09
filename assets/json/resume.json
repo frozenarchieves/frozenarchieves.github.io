@@ -26,7 +26,7 @@
       "name": "University of Delaware",
       "position": "PhD Candidate",
       "url": "https://www.udel.edu/academics/colleges/ceoe/departments/es/",
-      "startDate": "2023 - Present",
+      "startDate": "2023",
       "endDate": "",
       "summary": "Researching Antarctic Ice Sheet Dynamics using high-resolution IRD records.",
       "highlights": [
@@ -54,8 +54,8 @@
       "location": "University of Delaware",
       "position": "Outreach Volunteer",
       "url": "https://www.udel.edu",
-      "startDate": "2023, 2024",
-      "endDate": "",
+      "startDate": "2023",
+      "endDate": "2024",
       "summary": "Participated in public outreach activities showcasing IODP drilling for paleoclimate science.",
       "highlights": [
         "Demonstrated significance of deep-sea sediment cores in past climate studies to ~200 attendees"
@@ -69,7 +69,7 @@
       "url": "https://www.udel.edu/academics/colleges/ceoe/departments/es/",
       "area": "Earth Sciences",
       "studyType": "PhD",
-      "startDate": "2023 - Ongoing",
+      "startDate": "2023",
       "endDate": "",
       "score": "",
       "courses": [
@@ -208,7 +208,7 @@
         "Cation exchange Column Chemistry",
         "Mass Spectrometry"
       ],
-      "startDate": "2024 - Ongoing",
+      "startDate": "2024",
       "endDate": "",
       "url": ""
     },
