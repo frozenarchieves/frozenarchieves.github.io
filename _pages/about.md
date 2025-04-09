@@ -9,14 +9,9 @@ profile:
   image: IMG_3243.png
   image_circular: true # crops the image to make it circular
   more_info: >
-   <!--  <p>109, Penny Hall</p>
-     <p>255, Academy Street</p>
-     <p>Newark, DE 19716</p> -->
-profile:
-  align: right
-  image: BasakLabLogo.png
-  image_circular: true # crops the image to make it circular
-  more_info: >
+    <div style="text-align: center; margin-top: 1em;">
+      <img src="/assets/img/BasakLabLogo.png" alt="Basak Lab Logo" style="width: 100px; margin-top: 10px;">
+    </div>
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false # includes social icons at the bottom of the page
