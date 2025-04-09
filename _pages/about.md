@@ -42,4 +42,4 @@ Outside the lab, I'm always down for food adventures and the occasional dive int
 
 📍 Currently based at [University of Delaware](https://www.udel.edu/academics/colleges/ceoe/departments/es/)
 
-![IODP Expedition 383 Sitemap](http://publications.iodp.org/proceedings/383/383_04.png)
+[IODP Expedition 383 Sitemap](http://publications.iodp.org/proceedings/383/383_04.png)
