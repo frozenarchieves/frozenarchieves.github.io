@@ -54,3 +54,14 @@ Outside the lab, I'm always down for food adventures and the occasional dive int
     <a href="http://publications.iodp.org/proceedings/383/103/383_103.html">Source</a></p>
   </div>
 </div>
+
+<div style="margin-top: 2em; text-align: center;">
+  <iframe src="https://player.vimeo.com/video/1036875124" 
+          width="640" height="360" 
+          frameborder="0" 
+          allow="autoplay; fullscreen; picture-in-picture" 
+          allowfullscreen>
+  </iframe>
+  <p style="font-size: 0.9em; margin-top: 0.5em;">What lies beneath the Antarctic ice sheets ?</p>
+</div>
+
