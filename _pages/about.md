@@ -7,10 +7,11 @@ subtitle: <a href='#'></a>109, Penny Hall, 255 Academy Street, Newark, DE 19716
 profile:
   align: right
   image: IMG_3243.png
-  image_circular: true # crops the image to make it circular
+  image_circular: false # crops the image to make it circular
   more_info: >
-    <div style="text-align: center; margin-top: 1em;">
-      <img src="/assets/img/BasakLabLogo.png" alt="Basak Lab Logo" style="width: 100px; margin-top: 10px;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 1em;">
+      <img src="/assets/img/BasakLabLogo.png" alt="Basak Lab Logo" style="width: 150px;">
+      <img src="/assets/img/Exp383Patch.png" alt="University of Delaware Logo" style="width: 150px;">
     </div>
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
