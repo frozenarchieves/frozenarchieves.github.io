@@ -11,10 +11,10 @@ profile:
   more_info: >
     <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 1em;">
       <a href="https://basak-clim-chem.weebly.com" target="_blank">
-        <img src="/assets/img/BasakLabLogo.png" alt="Basak Lab Logo" style="width: 100px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); border-radius: 8px;">
+        <img src="/assets/img/BasakLabLogo.png" alt="Basak Lab Logo" style="width: 120px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); border-radius: 8px;">
       </a>
       <a href="http://publications.iodp.org/proceedings/383/383title.html" target="_blank">
-        <img src="/assets/img/Exp383Patch.png" alt="University of Delaware Logo" style="width: 100px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); border-radius: 8px;">
+        <img src="/assets/img/Exp383Patch.png" alt="University of Delaware Logo" style="width: 120px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); border-radius: 8px;">
       </a>
     </div>
 
