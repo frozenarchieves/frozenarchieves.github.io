@@ -10,8 +10,12 @@ profile:
   image_circular: false # crops the image to make it circular
   more_info: >
     <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 1em;">
-      <img src="/assets/img/BasakLabLogo.png" alt="Basak Lab Logo" style="width: 150px;">
-      <img src="/assets/img/Exp383Patch.png" alt="University of Delaware Logo" style="width: 150px;">
+      <a href="https://basak-clim-chem.weebly.com" target="_blank">
+        <img src="/assets/img/BasakLabLogo.png" alt="Basak Lab Logo" style="width: 150px;">
+      </a>
+      <a href="http://publications.iodp.org/proceedings/383/383title.html" target="_blank">
+        <img src="/assets/img/Exp383Patch.png" alt="University of Delaware Logo" style="width: 150px;">
+      </a>
     </div>
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
