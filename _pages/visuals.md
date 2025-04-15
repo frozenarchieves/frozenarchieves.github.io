@@ -11,9 +11,9 @@ horizontal: false
 <hr>
 <h2>Visual Gallery</h2>
 <div class="image-grid">
-  {% assign visuals = site.static_files | where: "path", "/assets/images/visuals" %}
+  {% assign visuals = site.static_files | where: "path", "/assets/visuals" %}
   {% for file in site.static_files %}
-    {% if file.path contains 'assets/images/visuals/' %}
+    {% if file.path contains 'assets/visuals/' %}
       <img src="{{ file.path | relative_url }}" alt="Visual" class="grid-image" onclick="openModal(this)">
     {% endif %}
   {% endfor %}
