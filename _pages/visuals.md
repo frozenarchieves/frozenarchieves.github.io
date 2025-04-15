@@ -1,14 +1,22 @@
 ---
 layout: page
 title: visuals
-permalink: assets/visuals/
 description: A growing collection of cool projects.
 nav: true
 nav_order: 3
 display_categories: [work, fun]
 horizontal: false
 ---
-
+<hr>
+<h2>Visual Gallery</h2>
+<div class="image-grid">
+  {% assign visuals = site.static_files | where: "path", "/assets/images/visuals" %}
+  {% for file in site.static_files %}
+    {% if file.path contains 'assets/images/visuals/' %}
+      <img src="{{ file.path | relative_url }}" alt="Visual" class="grid-image" onclick="openModal(this)">
+    {% endif %}
+  {% endfor %}
+</div>
 
 
 Test visuals page
