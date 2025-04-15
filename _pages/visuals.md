@@ -1,5 +1,6 @@
 ---
 layout: page
+permalink: /visuals/
 title: visuals
 description: A growing collection of cool projects.
 nav: true
