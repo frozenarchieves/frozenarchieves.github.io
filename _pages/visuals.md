@@ -9,30 +9,27 @@ display_categories: [work, fun]
 horizontal: false
 ---
 
+<hr>
 <h2>Visual Gallery</h2>
 <div class="image-grid">
-  {% assign visuals = site.static_files | where_exp: "file", "file.path contains 'assets/visuals/'" %}
-  {% for file in visuals %}
-    {% unless file.extname == ".txt" %}
-      <img 
-        src="{{ file.path | relative_url }}" 
-        data-caption="{{ file.path | replace: file.extname, '.txt' | relative_url }}" 
-        alt="Visual" 
-        class="grid-image" 
-        onclick="openModal({{ forloop.index0 }})">
-    {% endunless %}
+  {% for file in site.static_files %}
+    {% if file.path contains 'assets/visuals/' and file.extname != '.txt' %}
+      <img src="{{ file.path | relative_url }}" alt="Visual" class="grid-image" onclick="openModal(this)">
+    {% endif %}
   {% endfor %}
 </div>
 
 <!-- Modal for full image view -->
 <div id="modal" class="modal" onclick="closeModal(event)">
-  <span class="close" onclick="closeModal(event)">&times;</span>
-  <div class="arrow left-arrow" onclick="navigate(-1)">&#10094;</div>
+  <span class="close">&times;</span>
   <div class="modal-img-wrapper">
-    <img class="modal-content zoomable" id="modal-img">
-    <div id="modal-caption" class="modal-caption">Loading caption...</div>
+    <div class="modal-img-container">
+      <img class="modal-content zoomable" id="modal-img">
+      <div class="modal-caption" id="modal-caption"></div>
+    </div>
+    <div class="arrow left-arrow" onclick="prevImage(event)">&#10094;</div>
+    <div class="arrow right-arrow" onclick="nextImage(event)">&#10095;</div>
   </div>
-  <div class="arrow right-arrow" onclick="navigate(1)">&#10095;</div>
 </div>
 
 <style>
@@ -63,16 +60,18 @@ horizontal: false
   width: 100%; height: 100%;
   background-color: rgba(0,0,0,0.9);
   overflow: hidden;
-  padding-bottom: 80px; /* Makes room for caption above footer */
 }
 
 .modal-img-wrapper {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  overflow: auto;
+  position: relative;
+}
+
+.modal-img-container {
+  position: relative;
 }
 
 .modal-content {
@@ -80,20 +79,30 @@ horizontal: false
   max-height: 100%;
   transition: transform 0.2s ease;
   transform-origin: center center;
+  border-radius: 10px;
 }
 
+/* Caption overlay */
 .modal-caption {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 16px;
   width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 12px;
+  font-size: 16px;
   text-align: center;
   box-sizing: border-box;
-  z-index: 1001;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  pointer-events: none;
+}
+
+.modal-img-container:hover .modal-caption {
+  opacity: 1;
 }
 
 .close {
@@ -104,6 +113,7 @@ horizontal: false
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
+  z-index: 1001;
 }
 
 .arrow {
@@ -122,18 +132,25 @@ horizontal: false
 .right-arrow { right: 20px; }
 </style>
 
-
 <script>
-const images = Array.from(document.querySelectorAll('.grid-image'));
 let currentIndex = 0;
-let scale = 1;
+let imageElements = [];
 
-function openModal(index) {
-  currentIndex = index;
+document.addEventListener("DOMContentLoaded", () => {
+  imageElements = Array.from(document.querySelectorAll(".grid-image"));
+});
+
+function openModal(img) {
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modal-img");
+  const caption = document.getElementById("modal-caption");
+
   modal.style.display = "block";
-  loadImage(index);
+  modalImg.src = img.src;
+  currentIndex = imageElements.indexOf(img);
+  loadCaption(img.src);
+  scale = 1;
+  modalImg.style.transform = `scale(${scale})`;
 }
 
 function closeModal(event) {
@@ -142,31 +159,32 @@ function closeModal(event) {
   }
 }
 
-function navigate(direction) {
-  currentIndex = (currentIndex + direction + images.length) % images.length;
-  loadImage(currentIndex);
+function prevImage(e) {
+  e.stopPropagation();
+  currentIndex = (currentIndex - 1 + imageElements.length) % imageElements.length;
+  const img = imageElements[currentIndex];
+  document.getElementById("modal-img").src = img.src;
+  loadCaption(img.src);
 }
 
-function loadImage(index) {
-  const img = images[index];
-  const modalImg = document.getElementById("modal-img");
-  const captionDiv = document.getElementById("modal-caption");
-  scale = 1;
+function nextImage(e) {
+  e.stopPropagation();
+  currentIndex = (currentIndex + 1) % imageElements.length;
+  const img = imageElements[currentIndex];
+  document.getElementById("modal-img").src = img.src;
+  loadCaption(img.src);
+}
 
-  modalImg.src = img.src;
-  modalImg.style.transform = `scale(${scale})`;
-  captionDiv.textContent = "Loading caption...";
-
-  fetch(img.dataset.caption)
-    .then(response => response.ok ? response.text() : Promise.reject('No caption found.'))
+function loadCaption(imageSrc) {
+  const basePath = imageSrc.substring(0, imageSrc.lastIndexOf('.'));
+  fetch(basePath + ".txt")
+    .then(response => response.ok ? response.text() : "")
     .then(text => {
-      captionDiv.textContent = text.trim();
-    })
-    .catch(() => {
-      captionDiv.textContent = '';
+      document.getElementById("modal-caption").textContent = text;
     });
 }
 
+let scale = 1;
 document.addEventListener("wheel", function (e) {
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modal-img");
@@ -177,27 +195,4 @@ document.addEventListener("wheel", function (e) {
     modalImg.style.transform = `scale(${scale})`;
   }
 }, { passive: false });
-
-// Keyboard navigation
-document.addEventListener("keydown", function (e) {
-  const modal = document.getElementById("modal");
-  if (modal.style.display === "block") {
-    if (e.key === "ArrowRight") navigate(1);
-    if (e.key === "ArrowLeft") navigate(-1);
-    if (e.key === "Escape") closeModal({ target: { id: "modal" } });
-  }
-});
-
-// Swipe support for touch devices
-let touchStartX = 0;
-document.getElementById("modal").addEventListener("touchstart", function (e) {
-  touchStartX = e.changedTouches[0].screenX;
-});
-
-document.getElementById("modal").addEventListener("touchend", function (e) {
-  const touchEndX = e.changedTouches[0].screenX;
-  const diff = touchEndX - touchStartX;
-  if (diff > 50) navigate(-1);
-  else if (diff < -50) navigate(1);
-});
 </script>
