@@ -8,28 +8,46 @@ nav_order: 3
 display_categories: [work, fun]
 horizontal: false
 ---
-<hr>
+
 <h2>Visual Gallery</h2>
 <div class="image-grid">
-  {% assign visuals = site.static_files | where: "path", "/assets/visuals" %}
-  {% for file in site.static_files %}
-    {% if file.path contains 'assets/visuals/' %}
-      <img src="{{ file.path | relative_url }}" alt="Visual" class="grid-image" onclick="openModal(this)">
-    {% endif %}
+  {% assign visuals = site.static_files | where_exp: "file", "file.path contains 'assets/visuals/'" %}
+  {% for file in visuals %}
+    <img src="{{ file.path | relative_url }}" alt="Visual" class="grid-image" onclick="openModal({{ forloop.index0 }})">
   {% endfor %}
 </div>
 
-
-Test visuals page
 <!-- Modal for full image view -->
 <div id="modal" class="modal" onclick="closeModal(event)">
-  <span class="close">&times;</span>
+  <span class="close" onclick="closeModal(event)">&times;</span>
+  <div class="arrow left-arrow" onclick="navigate(-1)">&#10094;</div>
   <div class="modal-img-wrapper">
     <img class="modal-content zoomable" id="modal-img">
   </div>
+  <div class="arrow right-arrow" onclick="navigate(1)">&#10095;</div>
 </div>
 
 <style>
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.grid-image {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.grid-image:hover {
+  transform: scale(1.03);
+}
+
+/* Modal styles */
 .modal {
   display: none;
   position: fixed;
@@ -64,25 +82,55 @@ Test visuals page
   font-weight: bold;
   cursor: pointer;
 }
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 50px;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1001;
+  user-select: none;
+}
+
+.left-arrow {
+  left: 20px;
+}
+
+.right-arrow {
+  right: 20px;
+}
 </style>
 
 <script>
+const images = Array.from(document.querySelectorAll('.grid-image'));
+let currentIndex = 0;
 let scale = 1;
 
-function openModal(img) {
+function openModal(index) {
+  currentIndex = index;
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modal-img");
   modal.style.display = "block";
-  modalImg.src = img.src;
+  modalImg.src = images[index].src;
   scale = 1;
   modalImg.style.transform = `scale(${scale})`;
 }
 
 function closeModal(event) {
-  // Only close if clicking outside the image
   if (event.target.id === "modal" || event.target.classList.contains("close")) {
     document.getElementById("modal").style.display = "none";
   }
+}
+
+function navigate(direction) {
+  currentIndex = (currentIndex + direction + images.length) % images.length;
+  const modalImg = document.getElementById("modal-img");
+  modalImg.src = images[currentIndex].src;
+  scale = 1;
+  modalImg.style.transform = `scale(${scale})`;
 }
 
 document.addEventListener("wheel", function (e) {
@@ -91,7 +139,7 @@ document.addEventListener("wheel", function (e) {
   if (modal.style.display === "block") {
     e.preventDefault();
     scale += e.deltaY * -0.001;
-    scale = Math.min(Math.max(0.5, scale), 5); // Limit zoom range
+    scale = Math.min(Math.max(0.5, scale), 5);
     modalImg.style.transform = `scale(${scale})`;
   }
 }, { passive: false });
