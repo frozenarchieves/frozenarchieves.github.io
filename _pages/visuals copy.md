@@ -2,8 +2,8 @@
 layout: page
 permalink: /visuals/
 title: visuals
-description: A growing collection of cool projects.
-nav: true
+description: backup for visuals
+nav: false
 nav_order: 3
 display_categories: [work, fun]
 horizontal: false
@@ -13,14 +13,7 @@ horizontal: false
 <div class="image-grid">
   {% assign visuals = site.static_files | where_exp: "file", "file.path contains 'assets/visuals/'" %}
   {% for file in visuals %}
-    {% unless file.extname == ".txt" %}
-      <img 
-        src="{{ file.path | relative_url }}" 
-        data-caption="{{ file.path | replace: file.extname, '.txt' | relative_url }}" 
-        alt="Visual" 
-        class="grid-image" 
-        onclick="openModal({{ forloop.index0 }})">
-    {% endunless %}
+    <img src="{{ file.path | relative_url }}" alt="Visual" class="grid-image" onclick="openModal({{ forloop.index0 }})">
   {% endfor %}
 </div>
 
@@ -30,7 +23,6 @@ horizontal: false
   <div class="arrow left-arrow" onclick="navigate(-1)">&#10094;</div>
   <div class="modal-img-wrapper">
     <img class="modal-content zoomable" id="modal-img">
-    <div id="modal-caption" class="modal-caption">Loading caption...</div>
   </div>
   <div class="arrow right-arrow" onclick="navigate(1)">&#10095;</div>
 </div>
@@ -55,6 +47,7 @@ horizontal: false
   transform: scale(1.03);
 }
 
+/* Modal styles */
 .modal {
   display: none;
   position: fixed;
@@ -66,7 +59,6 @@ horizontal: false
 }
 
 .modal-img-wrapper {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,18 +71,6 @@ horizontal: false
   max-height: 100%;
   transition: transform 0.2s ease;
   transform-origin: center center;
-}
-
-.modal-caption {
-  position: absolute;
-  bottom: 0;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 16px;
-  width: 100%;
-  text-align: center;
-  box-sizing: border-box;
 }
 
 .close {
@@ -115,8 +95,13 @@ horizontal: false
   user-select: none;
 }
 
-.left-arrow { left: 20px; }
-.right-arrow { right: 20px; }
+.left-arrow {
+  left: 20px;
+}
+
+.right-arrow {
+  right: 20px;
+}
 </style>
 
 <script>
@@ -129,7 +114,9 @@ function openModal(index) {
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modal-img");
   modal.style.display = "block";
-  loadImage(index);
+  modalImg.src = images[index].src;
+  scale = 1;
+  modalImg.style.transform = `scale(${scale})`;
 }
 
 function closeModal(event) {
@@ -140,27 +127,10 @@ function closeModal(event) {
 
 function navigate(direction) {
   currentIndex = (currentIndex + direction + images.length) % images.length;
-  loadImage(currentIndex);
-}
-
-function loadImage(index) {
-  const img = images[index];
   const modalImg = document.getElementById("modal-img");
-  const captionDiv = document.getElementById("modal-caption");
+  modalImg.src = images[currentIndex].src;
   scale = 1;
-
-  modalImg.src = img.src;
   modalImg.style.transform = `scale(${scale})`;
-  captionDiv.textContent = "Loading caption...";
-
-  fetch(img.dataset.caption)
-    .then(response => response.ok ? response.text() : Promise.reject('No caption found.'))
-    .then(text => {
-      captionDiv.textContent = text.trim();
-    })
-    .catch(() => {
-      captionDiv.textContent = '';
-    });
 }
 
 document.addEventListener("wheel", function (e) {
@@ -173,27 +143,4 @@ document.addEventListener("wheel", function (e) {
     modalImg.style.transform = `scale(${scale})`;
   }
 }, { passive: false });
-
-// Keyboard navigation
-document.addEventListener("keydown", function (e) {
-  const modal = document.getElementById("modal");
-  if (modal.style.display === "block") {
-    if (e.key === "ArrowRight") navigate(1);
-    if (e.key === "ArrowLeft") navigate(-1);
-    if (e.key === "Escape") closeModal({ target: { id: "modal" } });
-  }
-});
-
-// Swipe support for touch devices
-let touchStartX = 0;
-document.getElementById("modal").addEventListener("touchstart", function (e) {
-  touchStartX = e.changedTouches[0].screenX;
-});
-
-document.getElementById("modal").addEventListener("touchend", function (e) {
-  const touchEndX = e.changedTouches[0].screenX;
-  const diff = touchEndX - touchStartX;
-  if (diff > 50) navigate(-1);
-  else if (diff < -50) navigate(1);
-});
 </script>
