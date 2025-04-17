@@ -21,16 +21,17 @@ horizontal: false
 
 <!-- Modal for full image view -->
 <div id="modal" class="modal" onclick="closeModal(event)">
-  <span class="close">&times;</span>
+  <span class="close" onclick="closeModal(event)">&times;</span>
+  <span class="arrow left-arrow" onclick="prevImage(event)">&#10094;</span>
+  <span class="arrow right-arrow" onclick="nextImage(event)">&#10095;</span>
   <div class="modal-img-wrapper">
-    <div class="modal-img-container">
-      <img class="modal-content zoomable" id="modal-img">
+    <div class="modal-img-container" id="img-container">
+      <img class="modal-content" id="modal-img">
       <div class="modal-caption" id="modal-caption"></div>
     </div>
-    <div class="arrow left-arrow" onclick="prevImage(event)">&#10094;</div>
-    <div class="arrow right-arrow" onclick="nextImage(event)">&#10095;</div>
   </div>
 </div>
+
 
 <style>
 .image-grid {
@@ -56,9 +57,10 @@ horizontal: false
   display: none;
   position: fixed;
   z-index: 1000;
-  left: 0; top: 0;
+  left: 0;
+  top: 0;
   width: 100%;
-  height: 100vh; /* ensures it covers full screen height */
+  height: 100vh;
   background-color: rgba(0,0,0,0.9);
   overflow: hidden;
 }
@@ -68,8 +70,7 @@ horizontal: false
   justify-content: center;
   align-items: center;
   height: 100%;
-  position: relative;
-  padding: 40px; /* gives space for arrows and captions */
+  padding: 40px;
   box-sizing: border-box;
 }
 
@@ -77,6 +78,9 @@ horizontal: false
   position: relative;
   max-height: 90vh;
   max-width: 90vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-content {
@@ -86,7 +90,6 @@ horizontal: false
   transform-origin: center center;
   border-radius: 10px;
   display: block;
-  margin: auto;
 }
 
 .modal-caption {
@@ -100,16 +103,11 @@ horizontal: false
   font-size: 16px;
   text-align: center;
   box-sizing: border-box;
-  opacity: 0;
-  transition: opacity 0.3s ease;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   pointer-events: none;
-  z-index: 1002;
-}
-
-.modal-img-container:hover .modal-caption {
   opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .close {
@@ -155,25 +153,38 @@ horizontal: false
 </style>
 
 
+
 <script>
+let scale = 1;
 let currentIndex = 0;
-let imageElements = [];
+let imageFiles = [];
+let captionVisible = true;
 
 document.addEventListener("DOMContentLoaded", () => {
-  imageElements = Array.from(document.querySelectorAll(".grid-image"));
+  imageFiles = Array.from(document.querySelectorAll(".grid-image"));
 });
 
 function openModal(img) {
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modal-img");
   const caption = document.getElementById("modal-caption");
+  const container = document.getElementById("img-container");
 
   modal.style.display = "block";
   modalImg.src = img.src;
-  currentIndex = imageElements.indexOf(img);
-  loadCaption(img.src);
   scale = 1;
   modalImg.style.transform = `scale(${scale})`;
+  captionVisible = true;
+  caption.style.opacity = 1;
+
+  currentIndex = imageFiles.findIndex(image => image.src === img.src);
+  
+  // Try loading caption
+  const imgName = img.src.split("/").pop().split(".")[0];
+  fetch(`/assets/visuals/${imgName}.txt`)
+    .then(res => res.ok ? res.text() : "")
+    .then(text => caption.textContent = text)
+    .catch(() => caption.textContent = "");
 }
 
 function closeModal(event) {
@@ -184,30 +195,18 @@ function closeModal(event) {
 
 function prevImage(e) {
   e.stopPropagation();
-  currentIndex = (currentIndex - 1 + imageElements.length) % imageElements.length;
-  const img = imageElements[currentIndex];
-  document.getElementById("modal-img").src = img.src;
-  loadCaption(img.src);
+  if (imageFiles.length === 0) return;
+  currentIndex = (currentIndex - 1 + imageFiles.length) % imageFiles.length;
+  openModal(imageFiles[currentIndex]);
 }
 
 function nextImage(e) {
   e.stopPropagation();
-  currentIndex = (currentIndex + 1) % imageElements.length;
-  const img = imageElements[currentIndex];
-  document.getElementById("modal-img").src = img.src;
-  loadCaption(img.src);
+  if (imageFiles.length === 0) return;
+  currentIndex = (currentIndex + 1) % imageFiles.length;
+  openModal(imageFiles[currentIndex]);
 }
 
-function loadCaption(imageSrc) {
-  const basePath = imageSrc.substring(0, imageSrc.lastIndexOf('.'));
-  fetch(basePath + ".txt")
-    .then(response => response.ok ? response.text() : "")
-    .then(text => {
-      document.getElementById("modal-caption").textContent = text;
-    });
-}
-
-let scale = 1;
 document.addEventListener("wheel", function (e) {
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modal-img");
@@ -218,4 +217,23 @@ document.addEventListener("wheel", function (e) {
     modalImg.style.transform = `scale(${scale})`;
   }
 }, { passive: false });
+
+document.getElementById("img-container").addEventListener("mouseenter", () => {
+  document.getElementById("modal-caption").style.opacity = 0;
+});
+
+document.getElementById("img-container").addEventListener("click", (e) => {
+  e.stopPropagation();
+  const caption = document.getElementById("modal-caption");
+  captionVisible = !captionVisible;
+  caption.style.opacity = captionVisible ? 1 : 0;
+});
+
+document.addEventListener("keydown", function (e) {
+  if (document.getElementById("modal").style.display === "block") {
+    if (e.key === "ArrowRight") nextImage(e);
+    else if (e.key === "ArrowLeft") prevImage(e);
+    else if (e.key === "Escape") closeModal(e);
+  }
+});
 </script>
