@@ -5,30 +5,40 @@ title: visuals
 description: A growing collection of cool projects.
 nav: true
 nav_order: 3
+display_categories: [work, fun]
+horizontal: false
 ---
 
+<hr>
 <h2>Visual Gallery</h2>
 <div class="image-grid">
-  {% assign visuals = site.static_files | where_exp: "item", "item.path contains 'assets/visuals/'" %}
-  {% for file in visuals %}
-    {% if file.extname == '.jpg' or file.extname == '.png' or file.extname == '.jpeg' %}
-      <img src="{{ file.path | relative_url }}" alt="Visual" class="grid-image" onclick="openModal(this)">
+  {% assign visuals = site.static_files | where: "path", "/assets/visuals" %}
+  {% for file in site.static_files %}
+    {% if file.path contains 'assets/visuals/' and file.extname != '.txt' %}
+      <img src="{{ file.path | relative_url }}" alt="Visual" class="grid-image" onclick="openModal('{{ file.path | relative_url }}')">
     {% endif %}
   {% endfor %}
 </div>
 
-<!-- Modal -->
+<!-- Modal for full image view -->
 <div id="modal" class="modal" onclick="closeModal(event)">
-  <span class="close">&times;</span>
-  <button id="prev" class="nav-button">←</button>
-  <button id="next" class="nav-button">→</button>
+  <div class="modal-controls">
+    <span class="close" onclick="closeModal(event)">&times;</span>
+    <button onclick="navigate(-1)">&#8592;</button>
+    <button onclick="navigate(1)">&#8594;</button>
+  </div>
   <div class="modal-img-wrapper">
     <img class="modal-content zoomable" id="modal-img">
-    <div id="caption" class="caption-banner">Loading caption...</div>
+    <div id="caption-banner" class="caption-banner">Caption text</div>
   </div>
 </div>
 
 <style>
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
 .image-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -56,6 +66,9 @@ nav_order: 3
   width: 100%; height: 100%;
   background-color: rgba(0,0,0,0.9);
   overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-img-wrapper {
@@ -68,8 +81,8 @@ nav_order: 3
 }
 
 .modal-content {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 90%;
+  max-height: 90%;
   transition: transform 0.2s ease;
   transform-origin: center center;
   cursor: grab;
@@ -79,13 +92,13 @@ nav_order: 3
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.6);
   color: white;
-  padding: 10px;
-  font-size: 1rem;
   text-align: center;
+  padding: 10px;
+  font-size: 16px;
   display: block;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s;
 }
 
 .caption-banner.hidden {
@@ -93,54 +106,44 @@ nav_order: 3
   pointer-events: none;
 }
 
-.close {
+.modal-controls {
   position: absolute;
-  top: 30px;
-  right: 45px;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 1100;
+}
+
+.modal-controls button, .close {
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  background: rgba(0,0,0,0.5);
   border: none;
-  color: white;
+  padding: 10px 20px;
+  font-size: 24px;
   cursor: pointer;
-  padding: 10px;
-  z-index: 1001;
+  border-radius: 5px;
 }
-
-#prev { left: 20px; }
-#next { right: 20px; }
 </style>
 
 <script>
 let scale = 1;
-let isDragging = false;
-let startX, startY;
 let currentIndex = 0;
-let imageElements = [];
-
+let images = [];
 document.addEventListener("DOMContentLoaded", () => {
-  imageElements = Array.from(document.querySelectorAll('.grid-image'));
+  images = Array.from(document.querySelectorAll(".grid-image")).map(img => img.src);
 });
 
-function openModal(img) {
+function openModal(src) {
+  currentIndex = images.indexOf(src);
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modal-img");
-  const caption = document.getElementById("caption");
-  modal.style.display = "block";
-  modalImg.src = img.src;
+  modal.style.display = "flex";
+  modalImg.src = src;
+  loadCaption(src);
   scale = 1;
-  modalImg.style.transform = `scale(${scale})`;
-  currentIndex = imageElements.indexOf(img);
-  loadCaption(img.src);
+  modalImg.style.transform = `scale(${scale}) translate(0px, 0px)`;
 }
 
 function closeModal(event) {
@@ -149,73 +152,33 @@ function closeModal(event) {
   }
 }
 
+function navigate(direction) {
+  currentIndex = (currentIndex + direction + images.length) % images.length;
+  openModal(images[currentIndex]);
+}
+
+function loadCaption(imgSrc) {
+  const base = imgSrc.split("/").pop().split(".")[0];
+  fetch(`/assets/visuals/${base}.txt`)
+    .then(response => response.ok ? response.text() : Promise.resolve(""))
+    .then(text => {
+      document.getElementById("caption-banner").innerText = text;
+    });
+}
+
+document.getElementById("modal-img").addEventListener("click", () => {
+  const banner = document.getElementById("caption-banner");
+  banner.classList.toggle("hidden");
+});
+
 document.addEventListener("wheel", function (e) {
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modal-img");
-  if (modal.style.display === "block") {
+  if (modal.style.display === "flex") {
     e.preventDefault();
     scale += e.deltaY * -0.001;
     scale = Math.min(Math.max(0.5, scale), 5);
     modalImg.style.transform = `scale(${scale})`;
   }
 }, { passive: false });
-
-// Drag to pan
-const modalImg = document.getElementById("modal-img");
-modalImg.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  startX = e.clientX - modalImg.offsetLeft;
-  startY = e.clientY - modalImg.offsetTop;
-  modalImg.style.cursor = 'grabbing';
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (isDragging) {
-    modalImg.style.position = "relative";
-    modalImg.style.left = `${e.clientX - startX}px`;
-    modalImg.style.top = `${e.clientY - startY}px`;
-  }
-});
-
-document.addEventListener("mouseup", () => {
-  isDragging = false;
-  modalImg.style.cursor = 'grab';
-});
-
-// Arrows navigation
-document.getElementById("prev").addEventListener("click", () => navigate(-1));
-document.getElementById("next").addEventListener("click", () => navigate(1));
-
-function navigate(direction) {
-  currentIndex = (currentIndex + direction + imageElements.length) % imageElements.length;
-  const newImg = imageElements[currentIndex];
-  openModal(newImg);
-}
-
-// Caption loading
-function loadCaption(imageSrc) {
-  const caption = document.getElementById("caption");
-  const baseName = imageSrc.substring(imageSrc.lastIndexOf('/') + 1, imageSrc.lastIndexOf('.'));
-  const txtPath = `/assets/visuals/${baseName}.txt`;
-
-  fetch(txtPath)
-    .then(res => res.ok ? res.text() : "No caption available.")
-    .then(text => caption.innerText = text)
-    .catch(() => caption.innerText = "No caption available.");
-}
-
-// Toggle caption on click
-document.getElementById("modal-img").addEventListener("click", () => {
-  const caption = document.getElementById("caption");
-  caption.classList.toggle("hidden");
-});
-
-// Hide caption on hover
-document.getElementById("modal-img").addEventListener("mouseenter", () => {
-  document.getElementById("caption").classList.add("hidden");
-});
-
-document.getElementById("modal-img").addEventListener("mouseleave", () => {
-  document.getElementById("caption").classList.remove("hidden");
-});
 </script>
