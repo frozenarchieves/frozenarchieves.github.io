@@ -57,7 +57,8 @@ horizontal: false
   position: fixed;
   z-index: 1000;
   left: 0; top: 0;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100vh; /* ensures it covers full screen height */
   background-color: rgba(0,0,0,0.9);
   overflow: hidden;
 }
@@ -68,10 +69,14 @@ horizontal: false
   align-items: center;
   height: 100%;
   position: relative;
+  padding: 40px; /* gives space for arrows and captions */
+  box-sizing: border-box;
 }
 
 .modal-img-container {
   position: relative;
+  max-height: 90vh;
+  max-width: 90vw;
 }
 
 .modal-content {
@@ -80,9 +85,10 @@ horizontal: false
   transition: transform 0.2s ease;
   transform-origin: center center;
   border-radius: 10px;
+  display: block;
+  margin: auto;
 }
 
-/* Caption overlay */
 .modal-caption {
   position: absolute;
   bottom: 0;
@@ -99,6 +105,7 @@ horizontal: false
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   pointer-events: none;
+  z-index: 1002;
 }
 
 .modal-img-container:hover .modal-caption {
@@ -130,7 +137,23 @@ horizontal: false
 
 .left-arrow { left: 20px; }
 .right-arrow { right: 20px; }
+
+@media screen and (max-width: 768px) {
+  .modal-caption {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .arrow {
+    font-size: 40px;
+  }
+
+  .close {
+    font-size: 30px;
+  }
+}
 </style>
+
 
 <script>
 let currentIndex = 0;
