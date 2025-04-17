@@ -9,6 +9,7 @@ display_categories: [work, fun]
 horizontal: false
 ---
 
+<hr>
 <h2>Visual Gallery</h2>
 <div class="image-grid">
   {% for file in site.static_files %}
@@ -18,15 +19,17 @@ horizontal: false
   {% endfor %}
 </div>
 
-<!-- Modal for full image view -->
+<!-- Modal Viewer -->
 <div id="modal" class="modal" onclick="closeModal(event)">
   <span class="close">&times;</span>
-  <span class="nav prev" onclick="navigate(-1)">&#10094;</span>
-  <span class="nav next" onclick="navigate(1)">&#10095;</span>
   <div class="modal-img-wrapper">
-    <div class="loader" id="loader"></div>
     <img class="modal-content zoomable" id="modal-img">
-    <div id="caption-banner" class="caption-banner">Loading caption...</div>
+    <div id="caption-banner" class="caption-banner">Caption will appear here</div>
+    <div class="nav-arrows">
+      <span class="arrow left" onclick="prevImage(event)">&#10094;</span>
+      <span class="arrow right" onclick="nextImage(event)">&#10095;</span>
+    </div>
+    <div id="loader" class="loader"></div>
   </div>
 </div>
 
@@ -62,82 +65,88 @@ horizontal: false
   justify-content: center;
   align-items: center;
   height: 100%;
+  overflow: auto;
 }
 .modal-content {
   max-width: 90%;
   max-height: 90%;
   transition: transform 0.2s ease;
-}
-.close {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  font-size: 40px;
-  color: white;
-  cursor: pointer;
-}
-.nav {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  color: white;
-  font-size: 40px;
-  padding: 20px;
+  transform-origin: center center;
   user-select: none;
-  z-index: 1001;
+  cursor: grab;
 }
-.prev { left: 10px; }
-.next { right: 10px; }
-
 .caption-banner {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 10px 20px;
-  background: rgba(0,0,0,0.7);
-  color: white;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
   text-align: center;
-  font-size: 16px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  font-family: sans-serif;
   transition: opacity 0.3s ease;
+  opacity: 1;
+  pointer-events: none;
 }
 .caption-banner.hidden {
   opacity: 0;
-  pointer-events: none;
 }
-
-/* Loader animation */
-.loader {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #888;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
+.nav-arrows .arrow {
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3em;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1001;
+  user-select: none;
+}
+.arrow.left { left: 20px; }
+.arrow.right { right: 20px; }
+.close {
+  position: absolute;
+  top: 30px;
+  right: 45px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1001;
+}
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  display: none;
   z-index: 1002;
 }
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
-
-.modal-content {
-  cursor: grab;
-}
-
 </style>
 
 <script>
-const images = Array.from(document.querySelectorAll(".grid-image"));
 let currentIndex = 0;
-let scale = 1;
+let images = [];
+let scale = 1, currentX = 0, currentY = 0;
 let captionVisible = true;
-let isDragging = false;
-let startX, startY, currentX = 0, currentY = 0;
-
+const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modal-img");
 const caption = document.getElementById("caption-banner");
-const modal = document.getElementById("modal");
+
+window.onload = function() {
+  images = Array.from(document.querySelectorAll(".grid-image"));
+};
 
 function openModal(img) {
   currentIndex = images.indexOf(img);
@@ -151,11 +160,6 @@ function closeModal(e) {
   }
 }
 
-function navigate(dir) {
-  currentIndex = (currentIndex + dir + images.length) % images.length;
-  loadImage(currentIndex);
-}
-
 function loadImage(index) {
   const loader = document.getElementById("loader");
   const img = images[index];
@@ -163,7 +167,6 @@ function loadImage(index) {
   const basePath = imgSrc.split('.').slice(0, -1).join('.');
   const txtPath = `${basePath}.txt`;
 
-  // Reset scale and pan
   scale = 1;
   currentX = 0;
   currentY = 0;
@@ -177,25 +180,40 @@ function loadImage(index) {
     modalImg.src = imgSrc;
     modalImg.style.display = "block";
     loader.style.display = "none";
+    captionVisible = true;
+    caption.classList.remove("hidden");
   };
   tempImg.src = imgSrc;
 
   fetch(txtPath)
     .then(res => res.ok ? res.text() : "No caption available.")
-    .then(text => {
-      caption.textContent = text;
-      caption.classList.remove("hidden");
-    });
+    .then(text => { caption.textContent = text; });
 
   preloadNext(index + 1);
   preloadNext(index - 1);
 }
 
-function preloadNext(idx) {
-  const realIndex = (idx + images.length) % images.length;
-  const src = images[realIndex].src;
-  const img = new Image();
-  img.src = src;
+function preloadNext(index) {
+  if (index >= 0 && index < images.length) {
+    const preloadImg = new Image();
+    preloadImg.src = images[index].src;
+  }
+}
+
+function nextImage(e) {
+  e.stopPropagation();
+  if (currentIndex < images.length - 1) {
+    currentIndex++;
+    loadImage(currentIndex);
+  }
+}
+
+function prevImage(e) {
+  e.stopPropagation();
+  if (currentIndex > 0) {
+    currentIndex--;
+    loadImage(currentIndex);
+  }
 }
 
 document.addEventListener("wheel", function (e) {
@@ -207,68 +225,44 @@ document.addEventListener("wheel", function (e) {
   }
 }, { passive: false });
 
-modalImg.addEventListener("mousedown", (e) => {
-  isDragging = true;
+modalImg.addEventListener("mousedown", startPan);
+modalImg.addEventListener("mouseup", endPan);
+modalImg.addEventListener("mouseleave", endPan);
+modalImg.addEventListener("mousemove", pan);
+
+let isPanning = false;
+let startX, startY;
+
+function startPan(e) {
+  isPanning = true;
   startX = e.clientX - currentX;
   startY = e.clientY - currentY;
   modalImg.style.cursor = "grabbing";
-});
+}
 
-window.addEventListener("mouseup", () => {
-  isDragging = false;
+function endPan() {
+  isPanning = false;
   modalImg.style.cursor = "grab";
-});
+}
 
-window.addEventListener("mousemove", (e) => {
-  if (isDragging) {
-    currentX = e.clientX - startX;
-    currentY = e.clientY - startY;
-    setTransform();
-  }
-});
-
-modalImg.addEventListener("touchstart", (e) => {
-  if (e.touches.length === 1) {
-    isDragging = true;
-    startX = e.touches[0].clientX - currentX;
-    startY = e.touches[0].clientY - currentY;
-  }
-});
-modalImg.addEventListener("touchend", () => { isDragging = false; });
-modalImg.addEventListener("touchmove", (e) => {
-  if (isDragging && e.touches.length === 1) {
-    currentX = e.touches[0].clientX - startX;
-    currentY = e.touches[0].clientY - startY;
-    setTransform();
-  }
-});
+function pan(e) {
+  if (!isPanning) return;
+  currentX = e.clientX - startX;
+  currentY = e.clientY - startY;
+  setTransform();
+}
 
 function setTransform() {
   modalImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
 }
 
-// Toggle caption on image click
-modalImg.addEventListener("click", () => {
-  captionVisible = !captionVisible;
-  caption.classList.toggle("hidden", !captionVisible);
-});
 modalImg.addEventListener("mouseenter", () => {
   caption.classList.add("hidden");
 });
-modalImg.addEventListener("mouseleave", () => {
-  if (captionVisible) caption.classList.remove("hidden");
-});
 
-// Swipe nav
-let touchStartX = null;
-modal.addEventListener("touchstart", (e) => {
-  touchStartX = e.changedTouches[0].screenX;
-});
-modal.addEventListener("touchend", (e) => {
-  if (touchStartX === null) return;
-  const diff = e.changedTouches[0].screenX - touchStartX;
-  if (Math.abs(diff) > 50) navigate(diff > 0 ? -1 : 1);
-  touchStartX = null;
+modalImg.addEventListener("click", (e) => {
+  e.stopPropagation();
+  captionVisible = !captionVisible;
+  caption.classList.toggle("hidden", !captionVisible);
 });
 </script>
-
